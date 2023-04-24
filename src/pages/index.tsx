@@ -9,23 +9,22 @@ export const getStaticProps: GetStaticProps = async (
 ) => {
   const name =
     (await (await fetch(`${process.env.BASE_API}hello`))?.json()) || "";
-  const date =
-    (await (await fetch(`${process.env.BASE_API}date`))?.json()) ||
-    new Date().toISOString();
+  // const date =
+  //   (await (await fetch(`${process.env.BASE_API}date`))?.json()) ||
+  //   new Date().toISOString();
   return {
     props: {
       name: name.name,
-      date: date.date,
+      // date: date.date,
     },
   };
 };
 
 interface HomeProps {
   name: string;
-  date: string;
 }
 
-export default function Home({ name, date }: HomeProps) {
+export default function Home({ name }: HomeProps) {
   return (
     <main
       className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
@@ -59,7 +58,7 @@ export default function Home({ name, date }: HomeProps) {
         Server Started on:{" "}
         {Intl.DateTimeFormat("en-GB", {
           dateStyle: "long",
-        }).format(new Date(date))}
+        }).format(new Date())}
       </div>
 
       <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
