@@ -13,10 +13,14 @@ export const getStaticProps: GetStaticProps = async (
   const { date } =
     (await (await fetch(`${process.env.BASE_API}date`))?.json()) ||
     new Date().toISOString();
+  const { message } = await (
+    await fetch(`https://simple-api-eight.vercel.app/`)
+  )?.json();
   return {
     props: {
       name,
       date,
+      message,
     },
   };
 };
@@ -24,9 +28,10 @@ export const getStaticProps: GetStaticProps = async (
 interface HomeProps {
   name: string;
   date: string;
+  message: string;
 }
 
-export default function Home({ name, date }: HomeProps) {
+export default function Home({ name, date, message }: HomeProps) {
   console.log(date);
   return (
     <main
@@ -62,6 +67,15 @@ export default function Home({ name, date }: HomeProps) {
         {Intl.DateTimeFormat("en-GB", {
           dateStyle: "long",
         }).format(new Date(date))}
+      </div>
+
+      <div>
+        <span>
+          This message is fetched from NestJS hosted on Vercel --{`>   `}{" "}
+        </span>
+        <span className="font-bold text-black text-xl dark:invert">
+          {message}
+        </span>
       </div>
 
       <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
