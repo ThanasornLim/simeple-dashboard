@@ -7,15 +7,16 @@ const inter = Inter({ subsets: ["latin"] });
 export const getStaticProps: GetStaticProps = async (
   ctx: GetStaticPropsContext
 ) => {
-  const name =
+  const { name } =
     (await (await fetch(`${process.env.BASE_API}hello`))?.json()) || "";
-  const date =
+  const { date } =
     (await (await fetch(`${process.env.BASE_API}date`))?.json()) ||
     new Date().toISOString();
+  console.log(date);
   return {
     props: {
-      name: name.name,
-      date: date.date,
+      name,
+      date,
     },
   };
 };
