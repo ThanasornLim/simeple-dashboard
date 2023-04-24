@@ -7,12 +7,12 @@ const inter = Inter({ subsets: ["latin"] });
 export const getStaticProps: GetStaticProps = async (
   ctx: GetStaticPropsContext
 ) => {
+  console.log(process.env.BASE_API);
   const { name } =
     (await (await fetch(`${process.env.BASE_API}hello`))?.json()) || "";
   const { date } =
     (await (await fetch(`${process.env.BASE_API}date`))?.json()) ||
     new Date().toISOString();
-  console.log(date);
   return {
     props: {
       name,
@@ -27,6 +27,7 @@ interface HomeProps {
 }
 
 export default function Home({ name, date }: HomeProps) {
+  console.log(date);
   return (
     <main
       className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
