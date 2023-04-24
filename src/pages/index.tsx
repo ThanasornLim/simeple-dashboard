@@ -10,8 +10,8 @@ export const getStaticProps: GetStaticProps = async (
   const name =
     (await (await fetch(`${process.env.BASE_API}hello`))?.json()) || "";
   const date =
-    (await (await fetch(`${process.env.BASE_API}date`))?.json()) || "";
-  console.log(date);
+    (await (await fetch(`${process.env.BASE_API}date`))?.json()) ||
+    new Date().toISOString();
   return {
     props: {
       name: name.name,
